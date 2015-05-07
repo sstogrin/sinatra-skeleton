@@ -9,7 +9,7 @@ class CreateTables < ActiveRecord::Migration
     end
 
     create_table :movies do |t|
-      t.string :name
+      t.string :title
       t.string :director
       t.string :country
       t.string :synopsis
@@ -20,8 +20,8 @@ class CreateTables < ActiveRecord::Migration
     end
 
     create_table :reviews do |t|
-      t.integer :user_id
-      t.integer :movie_id
+#      t.integer :user_id
+#      t.integer :movie_id
       t.string :review
       t.integer :star_rating
       t.timestamps
