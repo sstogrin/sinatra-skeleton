@@ -1,0 +1,33 @@
+form {
+/*  font-family: "Arial", "Marker Felt", "Arial", "Times New Roman"; */
+/*  color: green; */
+/*  margin: 10px 10px 10px 10px;*/
+/*  border-style: solid; */
+/*  border-top-width: 10px; */
+/*  border-color: pink; */
+}
+
+body {
+/*  background-color: #2bd6d3; */
+/*  background-color: #08c7c4; */
+  background-color: #addbde;
+}
+
+button {
+/*  color: green; */
+/*  background-color: orange; */
+  font-family: "Arial", "Marker Felt", "Arial", "Times New Roman";
+}
+
+.fancySection {
+  margin-top: 10px;
+  border-style: solid;
+  border-width: 2px;
+/*  border-color: yellow; */
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.rightText {
+  text-align: right;
+}
