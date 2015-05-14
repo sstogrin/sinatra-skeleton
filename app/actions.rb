@@ -1,3 +1,13 @@
+# Helpers
+helpers do
+
+  # access sinatra sessions current user
+  def current_user
+    @current_user = User.find_by(id: session[:user_id]) if session[:user_id]
+  end
+
+end
+
 # Homepage (Root path)
 get '/' do
   erb :index
@@ -10,7 +20,18 @@ end
 
 # submit the login page
 post '/login' do
-  redirect '/'  # go to the home page for now
+  email = params[:email]
+  password = params[:password]
+  user = User.find_by(email: email)
+  if user != nil 
+    if user.password == password
+      session[:user_id] = user.id # save user id in the session
+      redirect '/'  # go to the home page for now
+    else
+    end
+  end
+  session[:error] = "Email or password is incorrect"
+  redirect '/login' # go back to the login page
 end
 
 # get the logout page?
@@ -29,7 +50,21 @@ end
 
 # submit the signup page
 post '/signup' do
-  redirect '/' # go to the home page for now
+  email = params[:email]
+  user = User.find_by(email: email)
+  if user != nil
+    redirect '/login' # user already exists, make them log in
+  else
+    password = params[:password]
+    username = params[:username]
+    user = User.create(email: email, password: password, username: username)
+    if user != nil
+      session[:user_id] = user.id
+      redirect '/' # go to main page
+    else
+      redirect '/signup' # try again
+    end
+  end
 end
 
 # get the profile page
@@ -40,4 +75,22 @@ end
 # submit change from the profile page
 post '/profile' do
   redirect '/' # go to home page for now
+end
+
+# get the create movie page
+get '/movies/new' do
+  erb :new_movie
+end
+
+# submit a new movie to the database
+post '/movies/new' do
+  user = User.find(session[:user_id])
+  if user != nil
+    movie = user.movies.create(title: params[:title], director: params[:director], country: params[:country], synopsis: params[:synopsis], run_length: params[:run_length], mpaa_rating: params[:mpaa_rating], release_date: params[:release_date])
+    if movie != nil
+      redirect '/' # got to home page for now
+    end
+  end
+
+  redirect '/movies/new' # back to this page by default
 end

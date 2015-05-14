@@ -20,7 +20,8 @@ button {
 }
 
 .fancySection {
-  margin-top: 10px;
+/*  margin-top: 10px; */
+  margin: 10px 20px 10px 20px;
   border-style: solid;
   border-width: 2px;
 /*  border-color: yellow; */
@@ -30,4 +31,8 @@ button {
 
 .rightText {
   text-align: right;
+}
+
+.shortField {
+  width: 50%;
 }
