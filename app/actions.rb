@@ -77,20 +77,55 @@ post '/profile' do
   redirect '/' # go to home page for now
 end
 
+# get routine for editing user profile data
+get '/profile/edit' do
+  current_user  # get the current user
+  erb :profile
+end
+
+# post routine for updating user profile data
+post '/profile/edit' do
+  username = params[:username]
+  email = params[:email]
+  password = params[:password]
+  current_user.update(username: username, email: email, password: password)
+
+  redirect "/"  # back to the home page
+end
+
+
+# show info for the current movie
+get '/movie' do
+  erb :movie
+end
+
+
 # get the create movie page
 get '/movies/new' do
   erb :new_movie
 end
 
+# page for a specific movie
+get '/movies/:id' do
+  @movie = Movie.find(params[:id])
+  if @movie != nil
+    erb :movie
+  end
+  # redirect somewhere else?
+end
+
+
 # submit a new movie to the database
 post '/movies/new' do
-  user = User.find(session[:user_id])
+  user = current_user
   if user != nil
-    movie = user.movies.create(title: params[:title], director: params[:director], country: params[:country], synopsis: params[:synopsis], run_length: params[:run_length], mpaa_rating: params[:mpaa_rating], release_date: params[:release_date])
-    if movie != nil
-      redirect '/' # got to home page for now
+    @movie = user.movies.create(title: params[:title], director: params[:director], country: params[:country], synopsis: params[:synopsis], run_length: params[:run_length], mpaa_rating: params[:mpaa_rating], release_date: params[:release_date])
+    if @movie != nil
+      redirect "/movies/#{@movie.id}"  # go to the page for this movie
     end
   end
 
   redirect '/movies/new' # back to this page by default
 end
+
+
