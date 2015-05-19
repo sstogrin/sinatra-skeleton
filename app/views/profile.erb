@@ -1,17 +1,20 @@
-<section class="fancySection">
-  <form action="/profile" method="POST">
+<section class="fancySection shortField">
+  <form action="/profile/edit" method="POST">
     <h3>Profile</h3>
-    <label>User Name
-      <br><input type="text" name="username" value="<%= @current_user.username %>"
-    </label>
+    <div>
+      <label for="username">User Name</label><br>
+      <input type="text" name="username" id="username" value="<%= @current_user.username %>">
+    </div>
     <br>
-    <label>Email
-      <br><input type="email" name="email" value="<%= @current_user.email %>">
-    </label>
+    <div>
+      <label for="email">Email</label><br>
+      <input type="email" id="email" name="email" value="<%= @current_user.email %>">
+    </div>
     <br>
-    <label>Password
-      <br><input type="password" name="password" value="<%= @current_user.password %>">
-    </label>
+    <div>
+      <label for="password">Password</label><br>
+      <input type="password" id="password" name="password" value="<%= @current_user.password %>">
+    </div>
     <br>
     <button type="submit">Update</button>
   </form>

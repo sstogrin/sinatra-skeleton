@@ -72,11 +72,6 @@ get '/profile' do
   erb :profile
 end
 
-# submit change from the profile page
-post '/profile' do
-  redirect '/' # go to home page for now
-end
-
 # get routine for editing user profile data
 get '/profile/edit' do
   current_user  # get the current user
@@ -88,9 +83,13 @@ post '/profile/edit' do
   username = params[:username]
   email = params[:email]
   password = params[:password]
-  current_user.update(username: username, email: email, password: password)
-
-  redirect "/"  # back to the home page
+  user = current_user
+  if user == nil
+    puts "Something's wrong, user is nil"
+  else
+    user.update(username: username, email: email, password: password)
+    redirect "/"  # back to the home page
+  end
 end
 
 
