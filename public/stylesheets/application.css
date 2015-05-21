@@ -36,3 +36,14 @@ button {
 .shortField {
   width: 50%;
 }
+
+/* class for the movie container */
+#movie-container {
+  -webkit-column-count: 3;
+  -webkit-column-gap: 12px;
+}
+
+.movie {
+  margin: 10px;
+  width: 30%;
+}

@@ -8,9 +8,22 @@ helpers do
 
 end
 
+# Before any route execute this
+before do
+  redirect "/login" if !current_user && request.path != "/login" && request.path != "/signup"
+end
+
+
 # Homepage (Root path)
 get '/' do
+  @movies = Movie.all.order("title") # get all movies ordered by title
   erb :index
+end
+
+# log out the user
+get '/logout' do
+  session[:user_id] = nil
+  redirect "/"
 end
 
 # get the login page
